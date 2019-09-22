@@ -1,5 +1,6 @@
 package com.vinit.inventorymanagement.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -17,5 +18,10 @@ public class AppConfig {
 				registry.addMapping("/**").allowedOrigins("*");// add specific url to veu js
 			}
 		};
+	}
+
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
 	}
 }
