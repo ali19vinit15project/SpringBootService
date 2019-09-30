@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vinit.inventorymanagement.dto.LoginResponseDTO;
 import com.vinit.inventorymanagement.dto.UserDTO;
 import com.vinit.inventorymanagement.dto.UserResponseDTO;
 import com.vinit.inventorymanagement.service.UserService;
@@ -25,7 +26,7 @@ public class UserController {
 	private ModelMapper modelMapper;
 
 	@PostMapping("/login")
-	public String login(@RequestBody UserDTO user) {
+	public LoginResponseDTO login(@RequestBody UserDTO user) {
 		return userService.login(user.getUsername(), user.getPassword());
 	}
 

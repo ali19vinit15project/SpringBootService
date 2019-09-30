@@ -1,4 +1,4 @@
-package com.vinit.inventorymanagement.service.impl;
+package com.vinit.inventorymanagement.service;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,10 +11,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.vinit.inventorymanagement.dao.UserRepository;
+import com.vinit.inventorymanagement.dto.LoginResponseDTO;
 import com.vinit.inventorymanagement.exception.InventoryManException;
 import com.vinit.inventorymanagement.model.UserModel;
 import com.vinit.inventorymanagement.security.JwtTokenProvider;
-import com.vinit.inventorymanagement.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,10 +32,11 @@ public class UserServiceImpl implements UserService {
 	private AuthenticationManager authenticationManager;
 
 	@Override
-	public String login(String username, String password) {
+	public LoginResponseDTO login(String username, String password) {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-			return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
+			String jwt = jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
+			return LoginResponseDTO.builder().jwt(jwt).build();
 		} catch (AuthenticationException e) {
 			throw new InventoryManException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
 		}

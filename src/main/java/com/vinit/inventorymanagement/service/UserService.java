@@ -2,11 +2,12 @@ package com.vinit.inventorymanagement.service;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.vinit.inventorymanagement.dto.LoginResponseDTO;
 import com.vinit.inventorymanagement.model.UserModel;
 
 public interface UserService {
 
-	String login(String username, String password);
+	LoginResponseDTO login(String username, String password);
 
 	String signup(UserModel user);
 
